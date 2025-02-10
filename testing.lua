@@ -1,5 +1,6 @@
 local Mercury = loadstring(game:HttpGet("https://raw.githubusercontent.com/deeeity/mercury-lib/master/src.lua"))()
 
+-- и нахуй ты смотришь на код? долбаеб
 
 local isHighlightActive = false
 
