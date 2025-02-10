@@ -1,6 +1,5 @@
-local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+local Mercury = loadstring(game:HttpGet("https://raw.githubusercontent.com/deeeity/mercury-lib/master/src.lua"))()
 
--- [ НЕ ТРОГАТЬ КОД!!! ЕСЛИ ХОЧЕШЬ ГАИШКУ, СТРОКА 1577 ]
 
 local isHighlightActive = false
 
@@ -74,7 +73,6 @@ local hawktuahactivatesound = {
     "rbxassetid://110759725172567"
 }
 
-local hakariactive = false
 
 local quietactive = false
 
@@ -118,31 +116,12 @@ local guestaim = false
 
 
 local function initialize()
-    local GUI = Rayfield:CreateWindow({
-		Name = "ебанныйсакен",
-		Theme = "Default",
-		LoadingTitle = "застрелись экслоитер, ты ебучий",
-		LoadingSubtitle = "отсоси 🖕",
-		Icon = "notebook",
-		Link = "https://github.com/SilkScripts/AppleStuff/get out of here",
-
-		DisableBuildWarnings = true,
-		DisableRayfieldPrompts = true,
-
-		KeySystem = false,
-		KeySettings = {
-			Title = "1",
-			Subtitle = "2",
-			Note = "3",
-			FileName = "4",
-			SaveKey = true,
-			GrabKeyFromSite = false,
-			Key = {"хуй вам а не ключ"}, 
-		},
-	})
-    
-
-    
+    local GUI = Mercury:Create{
+        Name = "ебанныйсакен",
+        Size = UDim2.fromOffset(600, 400),
+        Theme = Mercury.Themes.Dark,
+        Link = "https://youtube.com/sex"
+    }
 
     local function button1() 
 		local visible = true
@@ -167,7 +146,7 @@ local function initialize()
 
 		local function toggleGUI()
 			visible = not visible
-			Rayfield:SetVisibility(visible, false)
+			GUI:show(visible)
 			sausageHolder.Size = UDim2.new(0, originalSize + (visible and 48 or 0), 0, sausageHolder.Size.Y.Offset)
 		end
 
@@ -180,7 +159,7 @@ local function initialize()
 		end)
 	end
 
-	local function button2() -- creds to ivan
+	local function button2() 
 		local visible = true
 		local topBarApp = game:GetService("CoreGui"):WaitForChild("TopBarApp")
 		local leftFrame = topBarApp:WaitForChild("TopBarFrame"):WaitForChild("LeftFrame")
@@ -209,7 +188,7 @@ local function initialize()
 
 		local function toggleGUI()
 			visible = not visible
-			Rayfield:SetVisibility(visible, false)
+			GUI:show(visible)
 		end
 		icon.Activated:Connect(toggleGUI)
 	end
@@ -302,12 +281,12 @@ local function initialize()
     
     local function hawktuahmode(state)
         if player.Character.Name ~= "c00lkidd" then
-            Rayfield:Notify{Title = "Wrong Character", Content = "Oops, your current character isn't COolkid, this POSSIBLY can bug out, so untoggle unless you're on Coolkidd!", Duration = 5}
+            GUI:Notification{Title = "не прваильный персонаж", Text = "упс.. возможно твой персонаж не c00lkidd или это баг..", Duration = 5}
             return end
         local TS = game:GetService("TweenService")
         hawktuahactive = state
     if state then
-        Rayfield:Notify{Title = "DM", Content = "hawk tuah mode", Duration = 10}
+        GUI:Notification{Title = "DM", Text = "вау", Duration = 10}
     end
         
         game.DescendantAdded:Connect(function(descendant)
@@ -364,7 +343,7 @@ local function initialize()
     
     
     
-    local function Do1x1x1x1Popups() -- creds to ivan
+    local function Do1x1x1x1Popups() 
         while true do
             if Do1x1PopupsLoop then
                 local player = game:GetService("Players").LocalPlayer
@@ -374,7 +353,7 @@ local function initialize()
                     if i.Name == "1x1x1x1Popup" then
                         local centerX = i.AbsolutePosition.X + (i.AbsoluteSize.X / 2)
                         local centerY = i.AbsolutePosition.Y + (i.AbsoluteSize.Y / 2)
-        
+                        if DebugNotifications then GUI:Notification{Title = "1x1x1x1 Popup Closed", Text = (pcall(function() return i:GetFullName() end) and i:GetFullName() or "Closed"), Duration = 3} else end
                         VirtualBallsManager:SendMouseButtonEvent(centerX, centerY, Enum.UserInputType.MouseButton1.Value, true, player.PlayerGui, 1)
                         VirtualBallsManager:SendMouseButtonEvent(centerX, centerY, Enum.UserInputType.MouseButton1.Value, false, player.PlayerGui, 1)
                     end
@@ -397,13 +376,26 @@ local function initialize()
         end
     end
     
-    local function solvegen()
-        for i, v in pairs(game.Workspace.Map.Ingame.Map:GetChildren()) do
-            if v.name == "Generator" then
-                v:WaitForChild("Remotes"):WaitForChild("RE"):FireServer()
-            end
-        end
-    end
+ local function GeneratorOnce()
+		local FartIngameFolder = workspace:FindFirstChild("Map") and workspace.Map:FindFirstChild("Ingame")
+		local FartNapFolder = FartIngameFolder and FartIngameFolder:FindFirstChild("Map")
+		if FartNapFolder then
+			for _, g in ipairs(FartNapFolder:GetChildren()) do
+				if g.Name == "Generator" and g.Progress.Value < 100 then
+					g.Remotes.RE:FireServer()
+					if DebugNotifications then
+						GUI:Notification({
+							Title = "Generator Done",
+							Text = (pcall(function()
+								return g:GetFullName()
+							end) and g:GetFullName() or "Generator Done"),
+							Duration = 3,
+						})
+					end
+				end
+			end
+		end
+	end
     
     
     local function instantsolvegenhell()
@@ -1047,7 +1039,7 @@ local function initialize()
     
     local function kaiguyskin()      
         if player.Character.Name ~= "Guest1337" then
-                    Rayfield:Notify{Title = "Wrong Character", Content = "Oops, your current character isn't Guest, this POSSIBLY can bug out, so untoggle unless you're on Guest!", Duration = 5}
+                    GUI:Notification{Title = "неправильный персонаж", Text = "упс.. возможно твой персонаж не Guest1337 или это баг.. ", Duration = 5}
                     return end
             for _, v in pairs(player.Character:GetChildren()) do
                 if v:IsA("Shirt") then
@@ -1130,7 +1122,7 @@ local function initialize()
     
     local function doomskin()      
         if player.Character.Name ~= "Shedletsky" then
-                    Rayfield:Notify{Title = "Wrong Character", Content = "Oops, your current character isn't Shedletsky, this POSSIBLY can bug out, so untoggle unless you're on Shedletsky!", Duration = 5}
+                    GUI:Notification{Title = "неправильный персонаж", Text = "упс.. возможно твой персонаж не Shedletsky или это баг.. Shedletsky, this POSSIBLY can bug out, so untoggle unless you're on Shedletsky!", Duration = 5}
                     return end
             for _, v in pairs(player.Character:GetChildren()) do
                 if v:IsA("Shirt") then
@@ -1211,7 +1203,7 @@ local function initialize()
     local function chanceaimbot(state)
         chanceaim = state
         if game.Players.LocalPlayer.Character.Name ~= "Chance" and state then
-            Rayfield:Notify{Title = "Wrong Character", Content = "Oops, your current character isn't Chance, this POSSIBLY can bug out, so untoggle unless you're on Chance!", Duration = 5}
+            GUI:Notification{Title = "неправильный персонаж", Text = "упс.. возможно твой персонаж не Chance или это баг..", Duration = 5}
             return 
         end
         if state then
@@ -1253,7 +1245,7 @@ local function initialize()
     local function shedaimbot(state)
         shedaim = state
         if game.Players.LocalPlayer.Character.Name ~= "Shedletsky" and state then
-            Rayfield:Notify{Title = "Wrong Character", Content = "Oops, your current character isn't Shedletsky, this POSSIBLY can bug out, so untoggle unless you're on Shedletsky!", Duration = 5}
+            GUI:Notification{Title = "неправильный персонаж", Text = "упс.. возможно твой персонаж не Shedletsky или это баг.. ", Duration = 5}
             return
         end
         if state then
@@ -1294,7 +1286,7 @@ local function initialize()
     local function guestaimbot(state)
         shedaim = state
         if game.Players.LocalPlayer.Character.Name ~= "Guest1337" and state then
-            Rayfield:Notify{Title = "Wrong Character", Content = "Oops, your current character isn't Guest, this POSSIBLY can bug out, so untoggle unless you're on Guest!", Duration = 5}
+            GUI:Notification{Title = "неправильный персонаж", Text = "упс.. возможно твой персонаж не Guest1337 или это баг..", Duration = 5}
             return
         end
         if state then
@@ -1336,7 +1328,7 @@ local function initialize()
         aimbot1x1 = state
     
         if game.Players.LocalPlayer.Character.Name ~= "1x1x1x1" and state then
-            Rayfield:Notify{Title = "Wrong Character", Content = "Oops, your current character isn't  1x, this POSSIBLY can bug out, so untoggle unless you're on 1x!", Duration = 5}
+            GUI:Notification{Title = "неправильный персонаж", Text = "упс.. возможно твой персонаж не 1x4 или это баг..", Duration = 5}
             return 
         end
     
@@ -1408,7 +1400,7 @@ local function initialize()
     local function johnaimbot(state)
         johnaim = state
         if game.Players.LocalPlayer.Character.Name ~= "JohnDoe" and state then
-            Rayfield:Notify{Title = "Wrong Character", Content = "Oops, your current character isn't John Doe, this POSSIBLY can bug out, so untoggle unless you're on John!", Duration = 5}
+            GUI:Notification{Title = "неправильный персонаж", Text = "упс.. возможно твой персонаж не JohnDoe или это баг..", Duration = 5}
             return 
         end
             if state then
@@ -1477,7 +1469,7 @@ local function initialize()
     local function jasonaimbot(state)
         jasonaim = state
         if game.Players.LocalPlayer.Character.Name ~= "Jason" and state then
-            Rayfield:Notify{Title = "Wrong Character", Text = "Oops, your current character isn't Jason, this POSSIBLY can bug out, so untoggle unless you're on Jason. Also this is buggy asf lmao", Duration = 5}
+            GUI:Notification{Title = "неправильный персонаж", Text = "упс.. возможно твой персонаж не Jason или это ЕБУЧИЙ баг.", Duration = 5}
             return 
         end
             if state then
@@ -1573,306 +1565,235 @@ local function initialize()
             end
     end
     
-
-    -- гаишка 😎
-
-    
-    Rayfield:Notify{Title = "🤔", Content = "🖕", Duration = 60, Image = "clipboard"}
-    
-    
-    local VisualTab = GUI:CreateTab("визуал", "eye")
-        
-    local gentab = GUI:CreateTab("генератор", "archive")
-   
-    local chartab = GUI:CreateTab("киллеры", "axe")
-    
-    local survivortab = GUI:CreateTab("выживший", "key")
-    
-    local blatanttab = GUI:CreateTab("Blatant", "angry")
-    
-    local misctab = GUI:CreateTab("прочее", "meh")
     
     
     
     
-    local InstantSolveButton = gentab:CreateButton({
-        Name = "Instant Solver Button",
-        Callback = function()
-        instantsolvegen()
-        end,
-     })
-    
-     local InstantSolveButtonGenHell = gentab:CreateButton({
-        Name = "Gen Hell 2 Map Instant Solver Button",
-        Callback = function()
-        instantsolvegenhell()
-        end,
-     })
-    
-    
-     local OnePuzzle = gentab:CreateButton({
-        Name = "One Puzzle Solver Button",
-        Callback = function()
-        solvegen()
-        end,
-     })
-    
-
-     gentab:CreateDivider() 
-
+    GUI:Notification{Title = "интересно играть с читами?", Text = "😡", Duration = 60}
+    GUI:Notification{Title = "для закрытия/открытия gui", Text = "нажми на del (delete)", Duration = 90}
 
     
-     local Toggle1 = gentab:CreateToggle({
-        Name = "авто генератор",
-        CurrentValue = false,
-      
-        Callback = function(state)
-        autogen(state)
-        end,
-     })
-
-
-     local Toggle2 = gentab:CreateToggle({
-        Name = "подсветка генераторов",
-        CurrentValue = false,
-     
-        Callback = function(state)
-        toggleHighlightGen(state)
-        end,
-     })
     
-     gentab:CreateDivider() 
+    local VisualTab = GUI:Tab{
+        Name = "визуал",
+        Icon = "http://www.roblox.com/asset/?id=1"
+    }
+    
+    local gentab = GUI:Tab{
+        Name = "генераторы",
+        Icon = "http://www.roblox.com/asset/?id=1"
+    }
+    
+    local chartab = GUI:Tab{
+        Name = "киллеры",
+        Icon = "http://www.roblox.com/asset/?id=1"
+    }
+    
+    local survivortab = GUI:Tab{
+        Name = "выжившие",
+        Icon = "http://www.roblox.com/asset/?id=1"
+    }
+    
+    local misctab = GUI:Tab{
+        Name = "прочее",
+        Icon = "http://www.roblox.com/asset/?id=1"
+    }
+    
+    
+    
 
-     local Keybind = gentab:CreateKeybind({
-        Name = "сделать генератор",
-        CurrentKeybind = "H",
-        HoldToInteract = false,
-       
-        Callback = function(Keybind)
-        solvegen()
-        end,
-     })
 
-     local Slider1 = gentab:CreateSlider({
-        Name = "Auto Gen Delay",
-        Range = {0.1, 10},
-        Increment = 0.1,
-        Suffix = "seconds",
-        CurrentValue = 0.1,
-         
-        Callback = function(value)
-        setdelay(value)
-        end,
-     })
+    gentab:Button{
+        Name = "решение генератора",
+        Description = "решает ПОЛНОСТЬЮ генератор за один клик",
+        Callback = function() 
+            instantsolvegen()
+        end
+    }
+    
+    gentab:Button{
+        Name = "ген хелл 2 решение генератора",
+        Description = "тоже решает ПОЛНОСТЬЮ генератор за один клик, но на карте Gen Hell 2",
+        Callback = function() 
+            instantsolvegenhell()
+        end
+    }
+
+    gentab:Keybind({
+			Name = "сделать часть генератора",
+			Keybind = Enum.KeyCode.K,
+			Callback = function()
+				solvegen()
+			end,
+		})
 
     --
-    local Toggle3 = VisualTab:CreateToggle({
-        Name = "Tool Highlighter",
-        CurrentValue = false,
+    VisualTab:Toggle{
+        Name = "предметы esp",
+        StartingState = false,
+        Description = "показывает все предметы, а также 007n7 клон, стройки от билдерменов, и пицца эллиота.",
+        Callback = function(state) 
+            highlighttools(state) 
+             survivorutilesp(state)
+             toggleHighlightGen(state)
+        end
+    }
     
-        Callback = function(state)
-        highlighttools(state)
-        end,
-     })
+    VisualTab:Toggle{
+        Name = "выжившие esp",
+        StartingState = false,
+        Description = "показывает всех выживших",
+        Callback = function(state) 
+            survivorHighlighter(state) 
+        end
+    }
     
-     local Toggle4 = VisualTab:CreateToggle({
-        Name = "Survivor Highligter",
-        CurrentValue = false,
-     
-        Callback = function(state)
-        survivorHighlighter(state)
-        end,
-     })
+    VisualTab:Toggle{
+        Name = "киллер esp",
+        StartingState = false,
+        Description = "показывает всех киллер(-ов) на карте",
+        Callback = function(state) 
+            killerHighlighter(state) 
+        end
+    }
     
-     local Toggle5 = VisualTab:CreateToggle({
-        Name = "Killer Highligter",
-        CurrentValue = false,
-       
-        Callback = function(state)
-        killerHighlighter(state)
-        end,
-     })
-    
-     local Toggle6 = VisualTab:CreateToggle({
-        Name = "C00lkidd ESP",
-        CurrentValue = false,
-       
-        Callback = function(state)
-        corruptnatureesp(state)
-        end,
-     })
-    
-     local Toggle7 = VisualTab:CreateToggle({
-        Name = "Survivor Utility Highlighter",
-        CurrentValue = false,
-      
-        Callback = function(state)
-        survivorutilesp(state)
-        end,
-     })
     --
     
-    local UnlockChars  = misctab:CreateButton({
-        Name = "разблокировать персов (онли клиент)",
-        Callback = function()
-        unlockclientcharacters()
-        end,
-     })
+    misctab:Button{
+        Name = "разблокать персов (клиент)",
+        Description = " ",
+        Callback = function() 
+            unlockclientcharacters()
+        end
+    }
     
-
-     misctab:CreateDivider() 
     
-     local Toggle12 = misctab:CreateToggle({
+    misctab:Toggle{
+        Name = "сыграть удаленную эмоцию",
+        StartingState = false,
+        Description = "бибибиби",
+        Callback = function(state) 
+            activatethesilly2(state)
+        end
+    }
+       
+    
+    misctab:Toggle{
         Name = "спрятать список игроков",
-        CurrentValue = false,
-         
-        Callback = function(state)
-            togglehidebar(state)
-        end,
-     })
+        StartingState = false,
+        Description = " ",
+        Callback = function(state) 
+            togglehidebar(state) 
+        end
+    }
     
-     misctab:CreateDivider() 
+    
 
-     local Slider2 = misctab:CreateSlider({
-        Name = "FOV",
-        Range = {1, 2},
-        Increment = 1,
-        Suffix = ";",
-        CurrentValue = 1,
-      
-        Callback = function(value)
-        FOVmulti(value)
-        end,
-     })
 
-     survivortab:CreateDivider() 
-
-     local Toggle13 = survivortab:CreateToggle({
+    survivortab:Toggle{
         Name = "шанс аимбот",
-        CurrentValue = false,
-        
-        Callback = function(state)
+        Description = " ",
+        StartingState = false,
+        Callback = function(state) 
             chanceaimbot(state)
-        end,
-     })
+        end
+    }
     
-     local Toggle14 = survivortab:CreateToggle({
-        Name = "шардлеский аимбот",
-        CurrentValue = false,
-        
-        Callback = function(state)
+    survivortab:Toggle{
+        Name = "шарледский аимбот",
+        Description = " ",
+        StartingState = false,
+        Callback = function(state) 
             shedaimbot(state)
-        end,
-     })
+        end
+    }
     
-     local Toggle15 = survivortab:CreateToggle({
+    survivortab:Toggle{
         Name = "гость аимбот",
-        CurrentValue = false,
-        
-        Callback = function(state)
+        Description = " ",
+        StartingState = false,
+        Callback = function(state) 
             guestaimbot(state)
-        end,
-     })
+        end
+    }
 
-     local Toggle16 = survivortab:CreateToggle({
-        Name = "телепортнуть к себе пиццу",
-        CurrentValue = false,
-        
-        Callback = function(state)
+    survivortab:Toggle{
+        Name = "телепорт пиццы",
+        Description = "хоть за три пизды будь все равно тепехнит",
+        StartingState = false,
+        Callback = function(state) 
             givemesomepizza(state)
-        end,
-     })
-    
+        end
+    }
 
-    local CoolKidAimbotToggle = chartab:CreateToggle({ 
-        Name = "кулкид аимбот ()",
-        CurrentValue = false,
-        Callback = function(state)
-            game:GetService("ReplicatedStorage").Modules.Network.RemoteEvent:FireServer("SetDevice", state and "Mobile" or "PC")
-        end,
-    })
+    chartab:Toggle{
+        Name = "кулкид аимбот",
+        Description = "говорит твоей игре что ты типо на мобилке, лол",
+        StartingState = false,
+        Callback = function(state) running = state game:GetService("ReplicatedStorage").Modules.Network.RemoteEvent:FireServer("SetDevice", state and "Mobile" or "PC") end
+    }
     
-
-    local aimbot1x1x1aimbot = chartab:CreateToggle({
+    
+    --
+    chartab:Toggle{
         Name = "1x4 аимбот",
-        CurrentValue = false,
-        Callback = function(state)
-           aimbot1x1x1x1(state)
-        end,
-    })
-
-
-    chartab:CreateDivider() 
-
-    local popupsolver = chartab:CreateToggle({
-        Name = "моментальное закрытие баннеров 1x4",
-        CurrentValue = false,
-        Callback = function(state)
-            Do1x1PopupsLoop = state and task.spawn(Do1x1x1x1Popups)
-        end,
-    })
-
+        Description = " ",
+        StartingState = false,
+        Callback = function(state) 
+            aimbot1x1x1x1(state)
+        end
+    }
     
-    local JohnAimbot = blatanttab:CreateToggle({ 
-        Name = "джон аим (шипы)",
-        CurrentValue = false,
-        Callback = function(state)
+     
+    chartab:Toggle{
+        Name = "джон аимбот",
+        Description = "направляет шипы на игроков рядом",
+        StartingState = false,
+        Callback = function(state) 
             johnaimbot(state)
-        end,
-    })
+        end
+    }
     
-
-    local JasonAimbot = blatanttab:CreateToggle({ 
-        Name = "джейсон аимбот (убивать только с способностями)",
-        CurrentValue = false,
-        Callback = function(state)
+    chartab:Toggle{
+        Name = "джейсон аимбот",
+        Description = " ",
+        StartingState = false,
+        Callback = function(state) 
             jasonaimbot(state)
-        end,
-    })
+        end
+    }
+
+      chartab:Toggle{
+        Name = "моментальное закрытие баннеров от 1x4",
+        Description = " ",
+        StartingState = false,
+        Callback = function(state) Do1x1PopupsLoop = state if state then task.spawn(Do1x1x1x1Popups) end end
+    }
     
-    blatanttab:CreateDivider() 
+ 
+    misctab:Toggle{
+        Name = "вернуть прыжок",
+        StartingState = false,
+        Description = "вау",
+        Callback = function(state) 
+            bringbackjumppower(state) 
+        end
+    }
 
 
-    local nostaminaloss = blatanttab:CreateToggle({ 
-        Name = "стамина не тратится (bad work)",
-        CurrentValue = false,
-        Callback = function(state)
-            staminadrainono(state)
-        end,
-    })
-    
-    
-    local jump = blatanttab:CreateToggle({ 
-        Name = "вернуть возможность прыжка",
-        CurrentValue = false,
-        Callback = function(state)
-            bringbackjumppower(state)
-        end,
-    })
-    
-    blatanttab:CreateDivider() 
-
-    local WalkspeedSlider = blatanttab:CreateSlider({
-        Name = "скорость ходьбы",
-        Range = {1, 1000},
-        Increment = 1,
-        Suffix = ";",
-        CurrentValue = 1,
-        Callback = function(value)
-        speedmulti(value)
-        end,
-     })
-
-     local JumpspeedSlider = blatanttab:CreateSlider({
-        Name = "сила прыжка",
-        Range = {1, 1000},
-        Increment = 1,
-        Suffix = ";",
-        CurrentValue = 50,
-        Callback = function(value)
-        bringbackjumppowerslider(value)
-        end,
-     })
+   misctab:Slider{
+        Name = "FOV",
+        Default = 1,
+        Min = 1,
+        Max = 2,
+        Callback = function(value) 
+            FOVmulti(value)
+        end
+    }
 end
 
+
+
 initialize()
+
+
