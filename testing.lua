@@ -912,7 +912,7 @@ local function initialize()
                     if not existingBillboard then
                         local billboard = Instance.new("BillboardGui")
                         billboard.Name = "billboard"
-                        billboard.Size = UDim2.new(0, 100, 0, 50)
+                        billboard.Size = UDim2.new(0, 20, 0, 50)
                         billboard.StudsOffset = Vector3.new(0, 2, 0)
                         billboard.AlwaysOnTop = true
                         billboard.Parent = model.Head
@@ -930,7 +930,7 @@ local function initialize()
                         local highlight = Instance.new("Highlight")
                         highlight.Name = "HiThere"
                         highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
-                        highlight.FillColor = Color3.fromRGB(0, 255, 0)
+                        highlight.FillColor = Color3.fromRGB(0, 180, 0)
                         highlight.Parent = model
                     end
                 else
@@ -967,7 +967,7 @@ local function initialize()
                     if not existingBillboard then
                         local billboard = Instance.new("BillboardGui")
                         billboard.Name = "billboard"
-                        billboard.Size = UDim2.new(0, 100, 0, 50)
+                        billboard.Size = UDim2.new(0, 60, 0, 50)
                         billboard.StudsOffset = Vector3.new(0, 2, 0)
                         billboard.AlwaysOnTop = true
                         billboard.Parent = model.Head
@@ -985,7 +985,7 @@ local function initialize()
                         local highlight = Instance.new("Highlight")
                         highlight.Name = "HiThere"
                         highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
-                        highlight.FillColor = Color3.fromRGB(255, 0, 0)
+                        highlight.FillColor = Color3.fromRGB(175, 0, 0)
                         highlight.Parent = model
                     end
                 else
@@ -1795,5 +1795,6 @@ end
 
 
 initialize()
+
 
 
