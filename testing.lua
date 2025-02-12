@@ -1,6 +1,5 @@
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
--- bro really check this script ahh moment
 
 local isHighlightActive = false
 
@@ -1611,7 +1610,7 @@ local function initialize()
     
     
      local OnePuzzle = gentab:CreateButton({
-        Name = "(тоже вроде решить пазл генератора)",
+        Name = "решить пазл генератора",
         Callback = function()
         solvegen()
         end,
@@ -1621,7 +1620,7 @@ local function initialize()
      gentab:CreateDivider() 
 
      local Keybind = gentab:CreateKeybind({
-        Name = "решить пазл генератора",
+        Name = "решить фулл генератор",
         CurrentKeybind = "H",
         HoldToInteract = false,
        
